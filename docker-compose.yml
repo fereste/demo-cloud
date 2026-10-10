@@ -1,0 +1,34 @@
+# Jenkins local para la demo de Nube + DevOps.
+# Se levanta con:  .\1-iniciar-jenkins.ps1   (o: docker compose up -d --build)
+name: demo-nube
+
+services:
+  jenkins:
+    build: ./jenkins
+    image: demo-nube-jenkins:1
+    container_name: jenkins-demo
+    # root para poder usar el Docker del host (solo para la demo, no hacer esto en producción)
+    user: root
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      JENKINS_ADMIN_PASSWORD: "demo"
+      TZ: "America/Argentina/Buenos_Aires"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      # Docker del host: Jenkins construye y ejecuta imágenes con el Docker Desktop de la computadora
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Repositorio git "del equipo de desarrollo" (se crea con 1-iniciar-jenkins.ps1)
+      - ./repo-demo:/repo
+      # Datos de los recursos creados en Azure (los genera 3-crear-infra.ps1)
+      - ./config:/demo-config:ro
+    networks:
+      - demo-net
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:
+
+networks:
+  demo-net:
+    name: demo-net

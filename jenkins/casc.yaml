@@ -1,0 +1,54 @@
+# Configuración de Jenkins como código (plugin "Configuration as Code").
+# Todo lo que normalmente se configura a mano en la web está acá,
+# por eso cualquier profesor obtiene exactamente el mismo Jenkins.
+jenkins:
+  systemMessage: "Demo Nube + DevOps - Virtualización de Hardware (UNLaM)"
+  numExecutors: 2
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "profe"
+          name: "Profesor"
+          password: "${JENKINS_ADMIN_PASSWORD:-demo}"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: true
+
+unclassified:
+  location:
+    url: "http://localhost:8080/"
+
+# El job de la demo: un pipeline que lee el Jenkinsfile del repositorio local
+# y se dispara solo cuando hay un commit nuevo (el hook post-commit del repo avisa a Jenkins).
+# El "pollSCM" con programación vacía no revisa periódicamente: solo habilita el aviso por commit.
+jobs:
+  - script: >
+      pipelineJob('demo-nube') {
+        displayName('Demo Nube + DevOps')
+        description('Cada commit en el repositorio local dispara: build de la imagen, prueba, push a Azure Container Registry y deploy en Azure Container Apps.')
+        properties {
+          disableConcurrentBuilds()
+          pipelineTriggers {
+            triggers {
+              pollSCM {
+                scmpoll_spec('')
+              }
+            }
+          }
+        }
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url('file:///repo')
+                }
+                branch('*/main')
+              }
+            }
+            scriptPath('Jenkinsfile')
+            lightweight(false)
+          }
+        }
+      }

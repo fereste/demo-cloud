@@ -1,0 +1,6 @@
+# Los scripts que corren en Linux (dentro de Jenkins) siempre con fin de línea LF
+* text=auto
+*.sh text eol=lf
+Jenkinsfile text eol=lf
+Dockerfile text eol=lf
+*.conf text eol=lf

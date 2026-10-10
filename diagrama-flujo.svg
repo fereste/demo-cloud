@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <marker id="flechaRoja" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <style>
+      .zona-titulo { font-size: 22px; font-weight: 700; fill: #0f172a; }
+      .zona-sub { font-size: 16px; fill: #475569; }
+      .caja-titulo { font-size: 19px; font-weight: 600; fill: #0f172a; }
+      .caja-sub { font-size: 15px; fill: #475569; }
+      .etiqueta { font-size: 15px; fill: #334155; font-style: italic; }
+      .linea { stroke: #334155; stroke-width: 2.5; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#ffffff"/>
+
+  <!-- Título -->
+  <text x="800" y="58" text-anchor="middle" font-size="34" font-weight="700" fill="#0f172a">Del commit a la nube, sin intervención manual</text>
+  <text x="800" y="94" text-anchor="middle" font-size="19" fill="#475569">Demo Nube + DevOps · Virtualización de Hardware · UNLaM</text>
+
+  <!-- ZONA 1: computadora -->
+  <rect x="40" y="130" width="360" height="560" rx="18" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="220" y="168" text-anchor="middle" class="zona-titulo">Computadora del profesor</text>
+  <text x="220" y="192" text-anchor="middle" class="zona-sub">(el "equipo de desarrollo")</text>
+
+  <rect x="75" y="240" width="290" height="100" rx="12" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+  <text x="220" y="282" text-anchor="middle" class="caja-titulo">Desarrollador</text>
+  <text x="220" y="308" text-anchor="middle" class="caja-sub">edita index.html</text>
+
+  <line x1="220" y1="340" x2="220" y2="440" class="linea" marker-end="url(#flecha)"/>
+  <text x="232" y="397" class="etiqueta">git commit</text>
+
+  <rect x="75" y="445" width="290" height="100" rx="12" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+  <text x="220" y="482" text-anchor="middle" class="caja-titulo">Repositorio git</text>
+  <text x="220" y="512" text-anchor="middle" class="caja-sub">código, Dockerfile, pruebas</text>
+  <text x="220" y="533" text-anchor="middle" class="caja-sub">y el pipeline (Jenkinsfile)</text>
+
+  <!-- ZONA 2: Jenkins -->
+  <rect x="460" y="130" width="500" height="560" rx="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/>
+  <text x="710" y="168" text-anchor="middle" class="zona-titulo">Jenkins · servidor CI/CD</text>
+  <text x="710" y="192" text-anchor="middle" class="zona-sub">(contenedor Docker en la computadora)</text>
+
+  <!-- aviso del hook -->
+  <path d="M365,495 L420,495 L420,250 L485,250" class="linea" marker-end="url(#flecha)"/>
+  <text x="410" y="380" class="etiqueta" text-anchor="middle" transform="rotate(-90 410 380)">aviso automático</text>
+
+  <g>
+    <rect x="490" y="215" width="440" height="70" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+    <text x="515" y="257" class="caja-titulo">1. Preparar</text>
+    <text x="905" y="257" text-anchor="end" class="caja-sub">lee la config y el commit</text>
+
+    <rect x="490" y="305" width="440" height="70" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+    <text x="515" y="347" class="caja-titulo">2. Construir imagen</text>
+    <text x="905" y="347" text-anchor="end" class="caja-sub">docker build</text>
+
+    <rect x="490" y="395" width="440" height="70" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+    <text x="515" y="437" class="caja-titulo">3. Probar</text>
+    <text x="905" y="437" text-anchor="end" class="caja-sub">pruebas automáticas</text>
+
+    <rect x="490" y="485" width="440" height="70" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+    <text x="515" y="527" class="caja-titulo">4. Publicar imagen</text>
+    <text x="905" y="527" text-anchor="end" class="caja-sub">docker push</text>
+
+    <rect x="490" y="575" width="440" height="70" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+    <text x="515" y="617" class="caja-titulo">5. Desplegar</text>
+    <text x="905" y="617" text-anchor="end" class="caja-sub">az containerapp update</text>
+
+    <line x1="710" y1="285" x2="710" y2="303" class="linea" marker-end="url(#flecha)"/>
+    <line x1="710" y1="375" x2="710" y2="393" class="linea" marker-end="url(#flecha)"/>
+    <line x1="710" y1="465" x2="710" y2="483" class="linea" marker-end="url(#flecha)"/>
+    <line x1="710" y1="555" x2="710" y2="573" class="linea" marker-end="url(#flecha)"/>
+  </g>
+
+  <!-- Falla -->
+  <path d="M490,430 L445,430 L445,760 L475,760" stroke="#b91c1c" stroke-width="2.5" fill="none" stroke-dasharray="7 5" marker-end="url(#flechaRoja)"/>
+  <rect x="480" y="720" width="480" height="84" rx="12" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="720" y="755" text-anchor="middle" font-size="18" font-weight="600" fill="#991b1b">Si una prueba falla, el pipeline se detiene</text>
+  <text x="720" y="782" text-anchor="middle" font-size="16" fill="#991b1b">la versión rota nunca llega a la nube</text>
+
+  <!-- ZONA 3: Azure -->
+  <rect x="1020" y="130" width="540" height="740" rx="18" fill="#f0fdf4" stroke="#86efac" stroke-width="2"/>
+  <text x="1290" y="168" text-anchor="middle" class="zona-titulo">Azure · nube pública</text>
+  <text x="1290" y="192" text-anchor="middle" class="zona-sub">(grupo de recursos rg-demo-nube)</text>
+
+  <!-- Usuarios -->
+  <rect x="1190" y="220" width="340" height="80" rx="12" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+  <text x="1360" y="255" text-anchor="middle" class="caja-titulo">Usuarios en internet</text>
+  <text x="1360" y="280" text-anchor="middle" class="caja-sub">navegador</text>
+  <line x1="1480" y1="300" x2="1480" y2="608" class="linea" marker-end="url(#flecha)"/>
+  <text x="1490" y="440" class="etiqueta">HTTPS</text>
+
+  <!-- ACR -->
+  <rect x="1050" y="470" width="330" height="100" rx="12" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <text x="1215" y="508" text-anchor="middle" class="caja-titulo">Container Registry</text>
+  <text x="1215" y="534" text-anchor="middle" class="caja-sub">guarda las imágenes versionadas</text>
+  <text x="1215" y="556" text-anchor="middle" class="caja-sub">demo-app:1, :2, :3 ...</text>
+  <line x1="930" y1="520" x2="1048" y2="520" class="linea" marker-end="url(#flecha)"/>
+
+  <!-- Container Apps -->
+  <rect x="1050" y="610" width="480" height="230" rx="12" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <text x="1290" y="648" text-anchor="middle" class="caja-titulo">Container Apps (PaaS)</text>
+  <text x="1290" y="672" text-anchor="middle" class="caja-sub">ejecuta, balancea y escala los contenedores</text>
+  <rect x="1080" y="700" width="130" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="1145" y="741" text-anchor="middle" class="caja-sub">réplica 1</text>
+  <rect x="1225" y="700" width="130" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="1290" y="741" text-anchor="middle" class="caja-sub">réplica 2</text>
+  <rect x="1370" y="700" width="130" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="1435" y="741" text-anchor="middle" class="caja-sub">réplica 3</text>
+  <text x="1290" y="810" text-anchor="middle" class="caja-sub">de 0 a N réplicas según la demanda</text>
+
+  <path d="M930,610 L990,610 L990,660 L1048,660" class="linea" marker-end="url(#flecha)"/>
+  <line x1="1215" y1="570" x2="1215" y2="608" class="linea" marker-end="url(#flecha)"/>
+  <text x="1230" y="594" class="etiqueta">descarga la imagen</text>
+</svg>
